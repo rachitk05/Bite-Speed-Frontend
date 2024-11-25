@@ -33,11 +33,48 @@ const Identify = () => {
             setLoading(false);
         }
     };
+    const renderJsonValue = (value) => {
+        if (Array.isArray(value)) {
+            return (
+                <span className="text-green-600">
+                    [
+                    {value.map((item, index) => (
+                        <span key={index}>
+                            {renderJsonValue(item)}
+                            {index < value.length - 1 && ', '}
+                        </span>
+                    ))}
+                    ]
+                </span>
+            );
+        } else if (typeof value === 'object' && value !== null) {
+            return renderJsonObject(value);
+        } else if (typeof value === 'string') {
+            return <span className="text-green-600">"{value}"</span>;
+        } else {
+            return <span className="text-blue-600">{JSON.stringify(value)}</span>;
+        }
+    };
+
+    const renderJsonObject = (obj, level = 0) => {
+        return (
+            <div style={{ marginLeft: `${level * 20}px` }}>
+                {'{'}
+                {Object.entries(obj).map(([key, value], index, array) => (
+                    <div key={key} className="ml-4">
+                        <span className="text-purple-600">"{key}"</span>: {renderJsonValue(value)}
+                        {index < array.length - 1 && ','}
+                    </div>
+                ))}
+                {'}'}
+            </div>
+        );
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
             <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-6 sm:p-8 md:p-10 space-y-8">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-6 text-gray-800 tracking-tight">Identity Reconciliation</h1>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-6 text-gray-800 ">Bite Speed <br/>Identity Reconciliation</h1>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
                         <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
@@ -84,18 +121,8 @@ const Identify = () => {
                     <div className="mt-8 space-y-4">
                         <h2 className="text-2xl font-semibold mb-4 text-gray-800">Response:</h2>
                         <div className="bg-gray-100 p-6 rounded-lg overflow-x-auto">
-                            <pre className="text-sm sm:text-base whitespace-pre-wrap break-words">
-                                {JSON.stringify(response, null, 2)
-                                    .split('\n')
-                                    .map((line, index) => (
-                                        <div key={index} className="leading-relaxed">
-                                            {line.split(':').map((part, i) => (
-                                                <span key={i} className={i === 0 ? 'text-blue-600 font-semibold' : 'text-gray-800'}>
-                                                    {part}{i === 0 && part.trim() !== '' ? ':' : ''}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    ))}
+                            <pre className="text-sm sm:text-base font-mono">
+                                {renderJsonObject(response)}
                             </pre>
                         </div>
                     </div>

@@ -1,8 +1,23 @@
-# React + Vite
+# Bite Speed - Identity Reconciliation Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a modern, responsive frontend for the Identity Reconciliation API. It provides a user-friendly interface to interact with the backend service, allowing users to input email and phone number data and view the reconciled identity information.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Clean and intuitive user interface
+- Real-time API integration
+- Responsive design for various screen sizes
+- Interactive JSON response display
+
+## Links
+
+- [Live Demo](https://bite-speed-frontend-pi.vercel.app/)
+- [Backend API](https://bite-speed-backend.onrender.com/identify)
+- [Backend Repository](https://github.com/rachitk05/Bite-Speed-Backend)
+
+## Author
+
+Rachit Kumar
+
+For more information, please visit my [GitHub profile](https://github.com/rachitk05).
+
